@@ -2,7 +2,7 @@ import serial
 import csv
 import time
 
-# Remplace 'COM3' par le port de ton Arduino (ex: 'COM4' ou '/dev/cu.usbmodem...' sur Mac)
+
 PORT = 'COM4' 
 BAUD = 9600
 
@@ -13,11 +13,11 @@ print("Enregistrement en cours... Appuie sur Ctlr+C pour arrêter.")
 
 with open('mesures_arduino.csv', mode='w', newline='') as file:
     writer = csv.writer(file, delimiter=';')
-    writer.writerow(['Horodatage', 'Distance_cm']) # En-têtes
+    writer.writerow(['Horodatage', 'Distance_cm'])
 
     try:
         while True:
-            if ser.in_waiting > 0:
+            if ser.in_waiting > 0: #si un octet est dispo, lire la ligne
                 ligne = ser.readline().decode('utf-8').strip()
                 if ligne:
                     temps = time.strftime('%H:%M:%S')
